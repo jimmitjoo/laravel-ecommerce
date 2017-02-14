@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Coupon;
 use Illuminate\Http\Request;
 
 class CouponsController extends Controller
@@ -13,7 +14,7 @@ class CouponsController extends Controller
      */
     public function index()
     {
-        //
+        return response(Coupon::all());
     }
 
     /**
