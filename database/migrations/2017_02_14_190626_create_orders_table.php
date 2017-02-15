@@ -13,8 +13,9 @@ class CreateCartsTable extends Migration
      */
     public function up()
     {
-        Schema::table('orders', function (Blueprint $table) {
-            //
+        Schema::create('orders', function (Blueprint $table) {
+            $table->increments('id');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +26,6 @@ class CreateCartsTable extends Migration
      */
     public function down()
     {
-        Schema::table('orders', function (Blueprint $table) {
-            //
-        });
+        Schema::drop('orders');
     }
 }

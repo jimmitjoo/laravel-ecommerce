@@ -13,8 +13,18 @@ class CreateCartitemsTable extends Migration
      */
     public function up()
     {
-        Schema::table('orderitems', function (Blueprint $table) {
-            //
+        Schema::create('orderitems', function (Blueprint $table) {
+            $table->increments('id');
+
+            $table->integer('order_id');
+            $table->integer('product_id');
+            $table->integer('amount');
+
+            $table->timestamps();
+
+            $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('order_id')->references('id')->on('roles');
+
         });
     }
 
@@ -25,8 +35,6 @@ class CreateCartitemsTable extends Migration
      */
     public function down()
     {
-        Schema::table('orderitems', function (Blueprint $table) {
-            //
-        });
+        Schema::drop('orderitems');
     }
 }

@@ -13,8 +13,14 @@ class CreateCouponsTable extends Migration
      */
     public function up()
     {
-        Schema::table('coupons', function (Blueprint $table) {
-            //
+        Schema::create('coupons', function (Blueprint $table) {
+            $table->increments('id');
+
+            $table->string('name')->unique();
+            $table->dateTime('start_time')->nullable();
+            $table->dateTime('end_time')->nullable();
+
+            $table->timestamps();
         });
     }
 
@@ -25,8 +31,6 @@ class CreateCouponsTable extends Migration
      */
     public function down()
     {
-        Schema::table('coupons', function (Blueprint $table) {
-            //
-        });
+        Schema::drop('coupons');
     }
 }
