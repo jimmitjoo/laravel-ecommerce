@@ -53,6 +53,21 @@
                             <li><a href="{{ route('login') }}">Login</a></li>
                             <li><a href="{{ route('register') }}">Register</a></li>
                         @else
+                            <li><a href="#">{{ __('orders.orders') }}</a></li>
+                            <li><a href="#">{{ __('products.products') }}</a></li>
+                            <li><a href="#">{{ __('categories.categories') }}</a></li>
+                            <li><a href="#">{{ __('coupons.coupons') }}</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    {{ __('users.users') }} <span class="caret"></span>
+                                </a>
+
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">{{ __('roles.roles') }}</a></li>
+                                    <li><a href="#">{{ __('permissions.permissions') }}</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#"></a></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     {{ Auth::user()->name }} <span class="caret"></span>
@@ -63,7 +78,7 @@
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                            Logout
+                                            {{ __('auth.logout') }}
                                         </a>
 
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
