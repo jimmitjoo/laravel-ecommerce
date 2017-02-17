@@ -17,6 +17,8 @@ class CreateCouponsTable extends Migration
             $table->increments('id');
 
             $table->string('name')->unique();
+            $table->integer('discount')->nullalbe();
+            $table->enum('type', ['percent', 'amount'])->default('percent');
             $table->dateTime('start_time')->nullable();
             $table->dateTime('end_time')->nullable();
 

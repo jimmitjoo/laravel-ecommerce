@@ -23,7 +23,7 @@ class CreateCartitemsTable extends Migration
             $table->timestamps();
 
             $table->foreign('product_id')->references('id')->on('products');
-            $table->foreign('order_id')->references('id')->on('roles');
+            $table->foreign('order_id')->references('id')->on('orders');
 
         });
     }
