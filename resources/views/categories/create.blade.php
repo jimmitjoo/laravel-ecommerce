@@ -8,7 +8,7 @@
 
                 <div class="col-md-3">
                     <div class="panel panel-default">
-                        <div class="panel-heading">{{ __('categories.product meta') }}</div>
+                        <div class="panel-heading">{{ __('categories.category meta') }}</div>
 
                         <div class="panel-body">
                             <div class="form-group">
