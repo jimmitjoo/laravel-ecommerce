@@ -11,6 +11,21 @@
                         <div class="panel-heading">{{ __('products.product meta') }}</div>
 
                         <div class="panel-body">
+
+                            <div class="form-group">
+                                <label for="categories">{{ __('categories.category') }}</label>
+
+                                <select class="form-control" name="categories[]" id="categories" multiple>
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}"
+                                                @if ($product->categories->contains($category->id))
+                                                selected="selected"
+                                                @endif
+                                        >{{ $category->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
                             <div class="form-group">
                                 <label for="price">{{ __('products.price') }}</label>
                                 <div class="input-group">

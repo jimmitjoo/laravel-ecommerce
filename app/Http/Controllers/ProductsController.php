@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use App\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
@@ -33,7 +34,9 @@ class ProductsController extends Controller
      */
     public function create()
     {
-        return view('products.create');
+        $categories = Category::orderBy('name')->get();
+
+        return view('products.create', ['categories' => $categories]);
     }
 
     /**
@@ -44,6 +47,9 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
+
+        dd($request->categories);
+
         $this->validate($request, [
             'name' => 'required',
             'price' => 'required|numeric',
@@ -54,6 +60,12 @@ class ProductsController extends Controller
         $product->description = $request->description;
         $product->price = $request->price;
         $product->save();
+
+        if (is_array($request->categories)) {
+            $product->categories()->attach($product->id, $request->categories);
+        } else {
+            $product->categories()->detach();
+        }
 
         return redirect(route('admin.products.show', ['id' => $product->id]));
 
@@ -67,9 +79,10 @@ class ProductsController extends Controller
      */
     public function show($id)
     {
+        $categories = Category::orderBy('name')->get();
         $product = Product::getById($id);
 
-        return view('products.edit', ['product' => $product]);
+        return view('products.edit', ['product' => $product, 'categories' => $categories]);
     }
 
     /**
@@ -80,9 +93,10 @@ class ProductsController extends Controller
      */
     public function edit($id)
     {
+        $categories = Category::orderBy('name')->get();
         $product = Product::getById($id);
 
-        return view('products.edit', ['product' => $product]);
+        return view('products.edit', ['product' => $product, 'categories' => $categories]);
     }
 
     /**
@@ -107,6 +121,11 @@ class ProductsController extends Controller
         $product->price = $request->price;
         $product->save();
 
+        if (is_array($request->categories)) {
+            $product->categories()->sync($request->categories, true);
+        } else {
+            $product->categories()->detach();
+        }
 
         return redirect(route('admin.products.show', ['id' => $product->id]));
 
