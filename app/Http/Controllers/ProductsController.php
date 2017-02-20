@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class ProductsController extends Controller
 {
@@ -12,6 +13,7 @@ class ProductsController extends Controller
     {
         $this->middleware('auth');
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -65,7 +67,7 @@ class ProductsController extends Controller
      */
     public function show($id)
     {
-        $product = Product::find($id);
+        $product = Product::getById($id);
 
         return view('products.edit', ['product' => $product]);
     }
@@ -78,7 +80,7 @@ class ProductsController extends Controller
      */
     public function edit($id)
     {
-        $product = Product::find($id);
+        $product = Product::getById($id);
 
         return view('products.edit', ['product' => $product]);
     }
@@ -97,11 +99,14 @@ class ProductsController extends Controller
             'price' => 'required|numeric',
         ]);
 
+        Cache::forget('product_' . $id);
+
         $product = Product::find($id);
         $product->name = $request->name;
         $product->description = $request->description;
         $product->price = $request->price;
         $product->save();
+
 
         return redirect(route('admin.products.show', ['id' => $product->id]));
 
@@ -115,7 +120,7 @@ class ProductsController extends Controller
      */
     public function destroy($id)
     {
-        $product = Product::find($id);
+        $product = Product::getById($id);
         $product->delete();
 
         return response(redirect()->back());
