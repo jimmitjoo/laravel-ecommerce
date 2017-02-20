@@ -4,17 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class CategoriesController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
-        return response(Category::all());
+        $categories = Category::paginate();
+
+        return view('categories.index')->with(['categories' => $categories]);
     }
 
     /**
@@ -24,7 +27,7 @@ class CategoriesController extends Controller
      */
     public function create()
     {
-        //
+        return view('categories.create');
     }
 
     /**
@@ -35,7 +38,15 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+        ]);
+
+        $category = new Category();
+        $category->name = $request->name;
+        $category->save();
+
+        return redirect(route('admin.categories.show', ['id' => $category->id]));
     }
 
     /**
@@ -46,7 +57,9 @@ class CategoriesController extends Controller
      */
     public function show($id)
     {
-        //
+        $category = Category::getById($id);
+
+        return view('categories.edit', ['category' => $category]);
     }
 
     /**
@@ -57,7 +70,9 @@ class CategoriesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = Category::getById($id);
+
+        return view('categories.edit', ['category' => $category]);
     }
 
     /**
@@ -69,7 +84,18 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+        ]);
+
+        Cache::forget('category_' . $id);
+
+        $category = Category::find($id);
+        $category->name = $request->name;
+        $category->save();
+
+
+        return redirect(route('admin.categories.show', ['id' => $category->id]));
     }
 
     /**
@@ -80,6 +106,9 @@ class CategoriesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category = Category::getById($id);
+        $category->delete();
+
+        return response(redirect()->back());
     }
 }
