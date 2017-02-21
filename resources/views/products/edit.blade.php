@@ -15,7 +15,7 @@
                             <div class="form-group">
                                 <label for="categories">{{ __('categories.category') }}</label>
 
-                                <select class="form-control" name="categories[]" id="categories" multiple>
+                                <select class="form-control selectpicker" title="{{ __('default.choose') }}" name="categories[]" id="categories" multiple>
                                     @foreach ($categories as $category)
                                         <option value="{{ $category->id }}"
                                         @if ($product->categories->contains($category->id))

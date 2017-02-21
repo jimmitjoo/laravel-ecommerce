@@ -22,7 +22,7 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        $products = Product::paginate();
+        $products = Product::latest()->paginate();
 
         return view('products.index')->with(['products' => $products]);
     }
@@ -47,9 +47,6 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-
-        dd($request->categories);
-
         $this->validate($request, [
             'name' => 'required',
             'price' => 'required|numeric',
@@ -62,7 +59,7 @@ class ProductsController extends Controller
         $product->save();
 
         if (is_array($request->categories)) {
-            $product->categories()->attach($product->id, $request->categories);
+            $product->categories()->sync($request->categories, true);
         } else {
             $product->categories()->detach();
         }

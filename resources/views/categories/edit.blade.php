@@ -12,6 +12,11 @@
 
                         <div class="panel-body">
                             <div class="form-group">
+                                <ul>
+                                    @foreach($category->products as $product)
+                                        <li><a href="{{ route('admin.products.show', ['id' => $product->id]) }}">{{ $product->name }}</a></li>
+                                    @endforeach
+                                </ul>
                             </div>
 
                             <input class="btn btn-primary" type="submit" value="{{ __('default.save') }}">

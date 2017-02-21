@@ -7,7 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    public static function getById($id)
+    public function products() {
+        return $this->belongsToMany('\App\Product');
+    }
+
+    public function getById($id)
     {
         $cacheKey = 'category_' . $id;
 

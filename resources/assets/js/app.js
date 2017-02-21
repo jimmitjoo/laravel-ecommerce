@@ -6,6 +6,7 @@
  */
 
 require('./bootstrap');
+require('../../../node_modules/bootstrap-select/js/bootstrap-select')
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
