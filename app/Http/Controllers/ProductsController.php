@@ -60,6 +60,12 @@ class ProductsController extends Controller
 
         if (is_array($request->categories)) {
             $product->categories()->sync($request->categories, true);
+
+            foreach ($request->categories as $category_id) {
+                $cacheKey = 'category_' . $category_id . '_with_products';
+                Cache::forget($cacheKey);
+            }
+
         } else {
             $product->categories()->detach();
         }
@@ -76,7 +82,7 @@ class ProductsController extends Controller
      */
     public function show($id)
     {
-        $categories = Category::orderBy('name')->get();
+        $categories = Category::getAllSortedByName();
         $product = Product::getById($id);
 
         return view('products.edit', ['product' => $product, 'categories' => $categories]);
@@ -90,7 +96,7 @@ class ProductsController extends Controller
      */
     public function edit($id)
     {
-        $categories = Category::orderBy('name')->get();
+        $categories = Category::getAllSortedByName();
         $product = Product::getById($id);
 
         return view('products.edit', ['product' => $product, 'categories' => $categories]);
@@ -120,6 +126,12 @@ class ProductsController extends Controller
 
         if (is_array($request->categories)) {
             $product->categories()->sync($request->categories, true);
+
+            foreach ($request->categories as $category_id) {
+                $cacheKey = 'category_' . $category_id . '_with_products';
+                Cache::forget($cacheKey);
+            }
+
         } else {
             $product->categories()->detach();
         }

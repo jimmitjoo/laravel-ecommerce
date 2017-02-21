@@ -43,6 +43,8 @@ class CategoriesController extends Controller
             'name' => 'required',
         ]);
 
+        Cache::forget('categories');
+
         $category = new Category();
         $category->name = $request->name;
         $category->save();
@@ -58,7 +60,7 @@ class CategoriesController extends Controller
      */
     public function show($id)
     {
-        $category = Category::with('products')->find($id);
+        $category = Category::getByIdWithProducts($id);
 
         return view('categories.edit', ['category' => $category]);
     }
@@ -71,7 +73,7 @@ class CategoriesController extends Controller
      */
     public function edit($id)
     {
-        $category = Category::getById($id);
+        $category = Category::getByIdWithProducts($id);
 
         return view('categories.edit', ['category' => $category]);
     }
@@ -89,7 +91,9 @@ class CategoriesController extends Controller
             'name' => 'required',
         ]);
 
+        Cache::forget('categories');
         Cache::forget('category_' . $id);
+        Cache::forget('category_' . $id . '_with_products');
 
         $category = Category::find($id);
         $category->name = $request->name;
