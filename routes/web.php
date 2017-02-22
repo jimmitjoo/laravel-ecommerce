@@ -37,4 +37,12 @@ Route::group(['prefix' => 'admin'], function(){
     Route::post('categories/update/{id}', ['as' => 'admin.categories.update', 'uses' => 'CategoriesController@update']);
     Route::get('categories/delete/{id}', ['as' => 'admin.categories.delete', 'uses' => 'CategoriesController@destroy']);
 
+    Route::get('users', ['as' => 'admin.users.index', 'uses' => 'UsersController@index']);
+    Route::get('users/create', ['as' => 'admin.users.create', 'uses' => 'UsersController@create']);
+    Route::get('users/edit/{id}', ['as' => 'admin.users.edit', 'uses' => 'UsersController@edit']);
+    Route::get('users/{id}', ['as' => 'admin.users.show', 'uses' => 'UsersController@show']);
+    Route::post('users', ['as' => 'admin.users.store', 'uses' => 'UsersController@store']);
+    Route::post('users/update/{id}', ['as' => 'admin.users.update', 'uses' => 'UsersController@update']);
+    Route::get('users/delete/{id}', ['as' => 'admin.users.delete', 'uses' => 'UsersController@destroy']);
+
 });

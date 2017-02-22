@@ -93,8 +93,8 @@
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#">{{ __('default.create new') }}</a></li>
-                                    <li><a href="#">{{ __('default.show all') }}</a></li>
+                                    <li><a href="{{ route('admin.users.create') }}">{{ __('default.create new') }}</a></li>
+                                    <li><a href="{{ route('admin.users.index') }}">{{ __('default.show all') }}</a></li>
                                     <li><a href="#">{{ __('roles.roles') }}</a></li>
                                     <li><a href="#">{{ __('permissions.permissions') }}</a></li>
                                 </ul>
