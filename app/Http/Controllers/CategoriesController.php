@@ -11,7 +11,14 @@ class CategoriesController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except('publicShow');
+    }
+
+    public function publicShow($id)
+    {
+        $category = Category::getByIdWithProducts($id);
+
+        return view('frontend.categories.show', ['category' => $category]);
     }
 
     /**

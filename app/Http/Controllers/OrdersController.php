@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Order;
 use Illuminate\Http\Request;
 
 class OrdersController extends Controller
@@ -45,7 +46,18 @@ class OrdersController extends Controller
      */
     public function show($id)
     {
-        //
+        return Order::find($id);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \App\Order
+     */
+    public function showWithItems($id)
+    {
+        return Order::with('items')->where('id', $id)->first();
     }
 
     /**

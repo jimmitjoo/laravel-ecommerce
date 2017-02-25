@@ -12,7 +12,21 @@ class ProductsController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except(['publicIndex', 'publicShow']);
+    }
+
+    public function publicIndex()
+    {
+        $products = Product::latest()->paginate();
+
+        return view('frontend.products.index')->with(['products' => $products]);
+    }
+
+    public function publicShow($id)
+    {
+        $product = Product::getById($id);
+
+        return view('frontend.products.show', ['product' => $product]);
     }
 
     /**
