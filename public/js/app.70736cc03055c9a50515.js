@@ -12218,7 +12218,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             orderItems: [],
-            amount: 0
+            amount: 0,
+            sum: 0.0
         };
     },
 
@@ -12234,8 +12235,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     _this2.orderItems = response.data.items;
 
                     _this2.amount = 0;
+                    _this2.sum = 0;
                     for (var i = 0; i < _this2.orderItems.length; i++) {
                         _this2.amount += _this2.orderItems[i].amount;
+                        _this2.sum += parseFloat(_this2.orderItems[i].product.price) * _this2.orderItems[i].amount;
                     }
                 });
             }
@@ -33801,7 +33804,13 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_vm._v("\n    Varukorg " + _vm._s(_vm.amount) + "\n")])
+  return _c('a', {
+    attrs: {
+      "href": "#"
+    }
+  }, [_c('span', {
+    staticClass: "glyphicon glyphicon-shopping-cart"
+  }), _vm._v(" " + _vm._s(_vm.amount) + "st " + _vm._s(_vm.sum) + "\n")])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

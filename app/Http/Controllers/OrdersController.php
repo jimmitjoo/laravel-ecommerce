@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Order;
+use App\Product;
 use Illuminate\Http\Request;
 
 class OrdersController extends Controller
@@ -57,7 +58,13 @@ class OrdersController extends Controller
      */
     public function showWithItems($id)
     {
-        return Order::with('items')->where('id', $id)->first();
+        $order = Order::with('items')->where('id', $id)->first();
+
+        foreach ($order->items as $item) {
+            $item->product = Product::where('id', $item->product_id)->first(['price']);
+        }
+
+        return $order;
     }
 
     /**

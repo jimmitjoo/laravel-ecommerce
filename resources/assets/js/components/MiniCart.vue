@@ -1,7 +1,7 @@
 <template>
-    <div>
-        Varukorg {{ amount }}
-    </div>
+    <a href="#">
+        <span class="glyphicon glyphicon-shopping-cart"></span> {{ amount }}st {{ sum }}
+    </a>
 </template>
 
 <script>
@@ -19,6 +19,7 @@
             return {
                 orderItems: [],
                 amount: 0,
+                sum: 0.0,
             }
         },
 
@@ -32,8 +33,10 @@
                         this.orderItems = response.data.items;
 
                         this.amount = 0;
+                        this.sum = 0;
                         for (var i = 0; i < this.orderItems.length; i++) {
                             this.amount += this.orderItems[i].amount;
+                            this.sum += (parseFloat(this.orderItems[i].product.price) * this.orderItems[i].amount);
                         }
                     })
                 }

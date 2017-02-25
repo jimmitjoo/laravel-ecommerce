@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Product;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -24,5 +25,12 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
+    }
+
+    public function startpage()
+    {
+        $products = Product::latest()->paginate();
+
+        return view('frontend.startpage.show')->with(['products' => $products]);
     }
 }
