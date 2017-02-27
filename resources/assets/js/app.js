@@ -13,9 +13,9 @@ require('../../../node_modules/bootstrap-select/js/bootstrap-select')
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example', require('./components/Example.vue'));
-Vue.component('addtocart', require('./components/AddToCart.vue'));
+Vue.component('cart', require('./components/Cart.vue'));
 Vue.component('minicart', require('./components/MiniCart.vue'));
+Vue.component('addtocart', require('./components/AddToCart.vue'));
 
 window.order_id = localStorage.order_id;
 window.added_to_tart = false;

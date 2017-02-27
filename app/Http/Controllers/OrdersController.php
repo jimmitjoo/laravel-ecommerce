@@ -47,7 +47,7 @@ class OrdersController extends Controller
      */
     public function show($id)
     {
-        return Order::find($id);
+        return Order::with('items')->find($id);
     }
 
     /**
@@ -61,10 +61,21 @@ class OrdersController extends Controller
         $order = Order::with('items')->where('id', $id)->first();
 
         foreach ($order->items as $item) {
-            $item->product = Product::where('id', $item->product_id)->first(['price']);
+            $item->product = Product::where('id', $item->product_id)->first(['name', 'price']);
         }
 
         return $order;
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function publicShow()
+    {
+        return response(view('frontend.orders.show'));
     }
 
     /**

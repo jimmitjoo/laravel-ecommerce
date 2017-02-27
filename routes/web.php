@@ -21,6 +21,7 @@ Route::get('products', ['as' => 'frontend.products.index', 'uses' => 'ProductsCo
 Route::get('products/{id}', ['as' => 'frontend.products.show', 'uses' => 'ProductsController@publicShow']);
 
 Route::get('categories/{id}', ['as' => 'frontend.categories.show', 'uses' => 'CategoriesController@publicShow']);
+Route::get('cart', 'OrdersController@publicShow');
 
 
 Route::group(['prefix' => 'admin'], function(){
@@ -48,5 +49,6 @@ Route::group(['prefix' => 'admin'], function(){
     Route::post('users', ['as' => 'admin.users.store', 'uses' => 'UsersController@store']);
     Route::post('users/update/{id}', ['as' => 'admin.users.update', 'uses' => 'UsersController@update']);
     Route::get('users/delete/{id}', ['as' => 'admin.users.delete', 'uses' => 'UsersController@destroy']);
+
 
 });

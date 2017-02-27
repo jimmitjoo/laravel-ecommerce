@@ -11250,9 +11250,9 @@ __webpack_require__(36);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example', __webpack_require__(39));
-Vue.component('addtocart', __webpack_require__(38));
+Vue.component('cart', __webpack_require__(56));
 Vue.component('minicart', __webpack_require__(40));
+Vue.component('addtocart', __webpack_require__(38));
 
 window.order_id = localStorage.order_id;
 window.added_to_tart = false;
@@ -12164,35 +12164,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 };
 
 /***/ }),
-/* 32 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = {
-    mounted: function mounted() {
-        console.log('Component mounted.');
-    }
-};
-
-/***/ }),
+/* 32 */,
 /* 33 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -33685,40 +33657,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 39 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(4)(
-  /* script */
-  __webpack_require__(32),
-  /* template */
-  __webpack_require__(43),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "/Users/jimmiejohansson/Code/laravel-ecommerce/resources/assets/js/components/Example.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] Example.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-3a1638c6", Component.options)
-  } else {
-    hotAPI.reload("data-v-3a1638c6", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
+/* 39 */,
 /* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -33821,35 +33760,7 @@ if (false) {
 }
 
 /***/ }),
-/* 43 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _vm._m(0)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "container"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-8 col-md-offset-2"
-  }, [_c('div', {
-    staticClass: "panel panel-default"
-  }, [_c('div', {
-    staticClass: "panel-heading"
-  }, [_vm._v("Example Component")]), _vm._v(" "), _c('div', {
-    staticClass: "panel-body"
-  }, [_vm._v("\n                    I'm an example component!\n                ")])])])])])
-}]}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-3a1638c6", module.exports)
-  }
-}
-
-/***/ }),
+/* 43 */,
 /* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -42460,6 +42371,164 @@ module.exports = function(module) {
 __webpack_require__(11);
 module.exports = __webpack_require__(12);
 
+
+/***/ }),
+/* 47 */,
+/* 48 */,
+/* 49 */,
+/* 50 */,
+/* 51 */,
+/* 52 */,
+/* 53 */,
+/* 54 */,
+/* 55 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = {
+    mounted: function mounted() {
+        var _this = this;
+
+        Event.$on('added_to_cart', function () {
+            _this.getOrderItems();
+        });
+
+        this.getOrderItems();
+    },
+    data: function data() {
+        return {
+            orderItems: [],
+            amount: 0,
+            sum: 0.0
+        };
+    },
+
+
+    methods: {
+        getOrderItems: function getOrderItems() {
+            var _this2 = this;
+
+            var order_id = localStorage.order_id !== 'undefined' ? localStorage.order_id : null;
+
+            if (order_id) {
+                axios.get('/api/orders/' + order_id + '/items').then(function (response) {
+                    _this2.orderItems = response.data.items;
+
+                    _this2.amount = 0;
+                    _this2.sum = 0;
+                    for (var i = 0; i < _this2.orderItems.length; i++) {
+                        _this2.amount += _this2.orderItems[i].amount;
+                        _this2.sum += parseFloat(_this2.orderItems[i].product.price) * _this2.orderItems[i].amount;
+                    }
+                });
+            }
+        },
+        removeItem: function removeItem(id) {
+
+            var order_id = localStorage.order_id !== 'undefined' ? localStorage.order_id : null;
+
+            if (order_id) {
+                axios.post('/api/orders/' + order_id + '/items/' + id + '/remove').then(function (response) {
+
+                    // delete item id from order
+
+                });
+            }
+        }
+    }
+};
+
+/***/ }),
+/* 56 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(4)(
+  /* script */
+  __webpack_require__(55),
+  /* template */
+  __webpack_require__(57),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/jimmiejohansson/Code/laravel-ecommerce/resources/assets/js/components/Cart.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Cart.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-af2d4b18", Component.options)
+  } else {
+    hotAPI.reload("data-v-af2d4b18", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 57 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-xs-12"
+  }, [_c('table', {
+    staticClass: "table table-hover"
+  }, [_vm._m(0), _vm._v(" "), _vm._l((_vm.orderItems), function(item) {
+    return _c('tr', [_c('td', [_c('a', {
+      attrs: {
+        "href": "#"
+      }
+    }, [_vm._v(_vm._s(item.product.name))])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.amount) + " st")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.product.price))]), _vm._v(" "), _c('td', [_c('button', {
+      on: {
+        "click": function($event) {
+          _vm.removeItem(item.id)
+        }
+      }
+    }, [_vm._v("Remove")])])])
+  })], 2)])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('thead', [_c('tr', [_c('th', [_vm._v("Produkt")]), _vm._v(" "), _c('th', [_vm._v("Antal")]), _vm._v(" "), _c('th', [_vm._v("Pris á styck")]), _vm._v(" "), _c('th', [_vm._v("Pris á styck")])])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-af2d4b18", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
