@@ -18,7 +18,7 @@ class Product extends Model
         if (Cache::has($cacheKey)) {
             $product = Cache::get($cacheKey);
         } else {
-            $product = Product::with('categories')->find($id);
+            $product = self::with('categories')->find($id);
             Cache::put($cacheKey, $product, 60);
         }
 
