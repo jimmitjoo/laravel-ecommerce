@@ -11,7 +11,7 @@ class UsersController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except(['index', 'show']);
     }
 
     /**
@@ -23,9 +23,11 @@ class UsersController extends Controller
     {
         $users = User::paginate();
 
-        return view('users.index', ['users' => $users]);
+        if (!request()->wantsJson()) {
+            return view('users.index', ['users' => $users]);
+        }
 
-        return response(User::all());
+        return response()->json($users);
     }
 
     public function create()
@@ -56,7 +58,11 @@ class UsersController extends Controller
     {
         $user = User::find($id);
 
-        return view('users.edit', ['user' => $user]);
+        if (!request()->wantsJson()) {
+            return view('users.edit', ['user' => $user]);
+        }
+
+        return response()->json($user);
     }
 
 
@@ -90,7 +96,7 @@ class UsersController extends Controller
 
         $this->validate($request, [
             'name' => 'required',
-            'email' => 'required|email|unique:users,email,'.$id,
+            'email' => 'required|email|unique:users,email,' . $id,
         ]);
 
         Cache::forget('users');

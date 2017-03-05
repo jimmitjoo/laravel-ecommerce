@@ -20,6 +20,7 @@ Route::get('/home', 'HomeController@index');
 Route::get('products', ['as' => 'frontend.products.index', 'uses' => 'ProductsController@publicIndex']);
 Route::get('products/{id}', ['as' => 'frontend.products.show', 'uses' => 'ProductsController@publicShow']);
 
+Route::get('categories', ['as' => 'frontend.categories.index', 'uses' => 'CategoriesController@publicIndex']);
 Route::get('categories/{id}', ['as' => 'frontend.categories.show', 'uses' => 'CategoriesController@publicShow']);
 Route::get('cart', 'OrdersController@publicShow');
 

@@ -21,12 +21,12 @@
                         <p class="group inner list-group-item-text">
                             {{ $product->description }}</p>
                         <div class="row">
-                            <div class="col-xs-12 col-md-6">
+                            <div class="col-xs-12">
                                 <p class="lead">
                                     {{ $product->price }} {{ env('ECOMMERCE_CURRENCY_SIGN') }}</p>
                             </div>
-                            <div class="col-xs-12 col-md-6">
-                                <a class="btn btn-success" style="width: 100%" href="#">Köp</a>
+                            <div class="col-xs-12">
+                                <addtocart product-id="{{ $product->id }}" product-amount="1"></addtocart>
                             </div>
                         </div>
                     </div>
