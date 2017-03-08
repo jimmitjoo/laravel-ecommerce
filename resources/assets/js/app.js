@@ -22,6 +22,20 @@ window.added_to_tart = false;
 
 window.Event = new Vue();
 
+import Store from './Store.vue';
+import { routes } from './routes';
+import VueRouter from 'vue-router';
+
+window.Vue.use(VueRouter);
+
+const router = new VueRouter({
+    routes,
+    // This does only work if the server response with the index file on every request
+    // mode: 'history'
+});
+
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    render: h => h(Store),
+    router
 });

@@ -26,3 +26,4 @@ Route::resource('orders', 'OrdersController');
 Route::get('orders/{id}/items', 'OrdersController@showWithItems');
 Route::get('orders/{order_id}/items/{item_id}/delete', 'OrdersController@showWithItems');
 Route::resource('orderitems', 'OrderItemsController');
+Route::get('products/latest', 'ProductsController@apiLatest');
