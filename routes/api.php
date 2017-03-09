@@ -23,8 +23,8 @@ Route::get('users/{id}', 'UsersController@show');
 Route::post('addtocart', 'OrderItemsController@addtoorder');
 
 Route::resource('orders', 'OrdersController');
-Route::get('orders/{id}/items', 'OrdersController@showWithItems');
-Route::get('orders/{order_id}/items/{item_id}/delete', 'OrdersController@apiDeleteFromOrder');
+Route::get('orders/{id}/items', 'OrdersController@apiShowWithItems');
+Route::post('orders/{order_id}/items/{item_id}/delete', 'OrdersController@apiDeleteFromOrder');
 Route::resource('orderitems', 'OrderItemsController');
 Route::get('categories', 'CategoriesController@apiIndex');
 Route::get('products/latest', 'ProductsController@apiLatest');

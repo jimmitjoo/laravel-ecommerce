@@ -8,7 +8,7 @@
     export default {
 
         mounted() {
-            Event.$on('added_to_cart', () => {
+            Event.$on('updated_cart', () => {
                 this.getOrderItems();
             });
 

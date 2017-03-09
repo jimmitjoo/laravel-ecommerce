@@ -12,13 +12,35 @@ class OrdersController extends Controller
 
     public function apiDeleteFromOrder($orderId, $id)
     {
-        $orderItem = OrderItem::
+        $orderItem = OrderItem::find($id);
+
+        if ($orderItem->order_id == $orderId) $orderItem->delete();
+
+        return Order::find($orderId);
+
         $order = Order::with('items')->where('id', $orderId)->first();
 
         foreach ($order->items as $item) {
             if ($item->id == $id)
             dd($item);
             $item->product = Product::where('id', $item->product_id)->first(['name', 'price']);
+        }
+
+        return $order;
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \App\Order
+     */
+    public function apiShowWithItems($id)
+    {
+        $order = Order::with('items')->where('id', $id)->first();
+
+        foreach ($order->items as $item) {
+            $item->product = Product::where('id', $item->product_id)->first(['id', 'name', 'price']);
         }
 
         return $order;
@@ -77,7 +99,7 @@ class OrdersController extends Controller
         $order = Order::with('items')->where('id', $id)->first();
 
         foreach ($order->items as $item) {
-            $item->product = Product::where('id', $item->product_id)->first(['name', 'price']);
+            $item->product = Product::where('id', $item->product_id)->first(['id', 'name', 'price']);
         }
 
         return $order;

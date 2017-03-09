@@ -44,7 +44,7 @@
 
                     console.log(response.data);
 
-                    Event.$emit('added_to_cart', true);
+                    Event.$emit('updated_cart', true);
 
                     localStorage.order_id = response.data.order_id;
                 }).catch(error => {

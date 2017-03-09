@@ -25,7 +25,6 @@ window.Event = new Vue();
 import Store from './Store.vue';
 import { routes } from './routes';
 import VueRouter from 'vue-router';
-
 window.Vue.use(VueRouter);
 
 const router = new VueRouter({

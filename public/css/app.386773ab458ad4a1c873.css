@@ -8871,6 +8871,10 @@ a.list-group-item-danger.active:focus {
   color: #636b6f;
 }
 
+#app {
+  padding-top: 70px;
+}
+
 .btn-primary {
   color: #fff;
 }

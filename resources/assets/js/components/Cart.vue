@@ -10,7 +10,7 @@
             </tr>
             </thead>
             <tr v-for="item in orderItems">
-                <td><a href="#">{{ item.product.name }}</a></td>
+                <td><router-link :to="{ name: 'single-product', params: { id: item.product.id } }">{{ item.product.name }}</router-link></td>
                 <td>{{ item.amount }} st</td>
                 <td>{{ item.product.price }}</td>
                 <td>
@@ -25,7 +25,7 @@
     export default {
 
         mounted() {
-            Event.$on('added_to_cart', () => {
+            Event.$on('updated_cart', response => {
                 this.getOrderItems();
             });
 
@@ -67,11 +67,11 @@
                 if (order_id) {
                     console.log('/api/orders/' + order_id + '/items/' + id + '/delete');
 
-                    /*axios.post('/api/orders/' + order_id + '/items/' + id + '/delete').then(response => {
+                    axios.post('/api/orders/' + order_id + '/items/' + id + '/delete').then(response => {
 
-                        // delete item id from order
+                        Event.$emit('updated_cart', true);
 
-                    });*/
+                    });
                 }
             }
         }
