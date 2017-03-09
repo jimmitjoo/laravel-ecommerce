@@ -3,11 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Order;
+use App\OrderItem;
 use App\Product;
 use Illuminate\Http\Request;
 
 class OrdersController extends Controller
 {
+
+    public function apiDeleteFromOrder($orderId, $id)
+    {
+        $orderItem = OrderItem::
+        $order = Order::with('items')->where('id', $orderId)->first();
+
+        foreach ($order->items as $item) {
+            if ($item->id == $id)
+            dd($item);
+            $item->product = Product::where('id', $item->product_id)->first(['name', 'price']);
+        }
+
+        return $order;
+    }
+
     /**
      * Display a listing of the resource.
      *

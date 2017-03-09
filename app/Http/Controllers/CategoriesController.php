@@ -11,7 +11,21 @@ class CategoriesController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->except(['publicIndex', 'publicShow']);
+        $this->middleware('auth')->except(['publicIndex', 'publicShow', 'apiIndex', 'apiShow']);
+    }
+
+    public function apiIndex()
+    {
+        $categories = Category::paginate();
+
+        return $categories;
+    }
+
+    public function apiShow($id)
+    {
+        $category = Category::getByIdWithProducts($id);
+
+        return $category;
     }
 
     public function publicIndex()

@@ -8,6 +8,9 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <meta name="currency" content="{{ env('ECOMMERCE_CURRENCY') }}">
+    <meta name="currency-sign" content="{{ env('ECOMMERCE_CURRENCY_SIGN') }}">
+
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
@@ -17,6 +20,8 @@
     <script>
         window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token(),
+            'currency' => env('ECOMMERCE_CURRENCY'),
+            'currencySign' => env('ECOMMERCE_CURRENCY_SIGN'),
         ]) !!};
     </script>
 </head>

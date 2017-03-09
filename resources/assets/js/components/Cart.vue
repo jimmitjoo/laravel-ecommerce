@@ -46,7 +46,7 @@
                 var order_id = (localStorage.order_id !== 'undefined') ? localStorage.order_id : null;
 
                 if (order_id) {
-                    axios.get('/api/orders/' + order_id + '/items').then((response) => {
+                    axios.get('/api/orders/' + order_id + '/items').then(response => {
                         this.orderItems = response.data.items;
 
                         this.amount = 0;
@@ -55,7 +55,7 @@
                             this.amount += this.orderItems[i].amount;
                             this.sum += (parseFloat(this.orderItems[i].product.price) * this.orderItems[i].amount);
                         }
-                    })
+                    });
                 }
 
             },
@@ -65,11 +65,13 @@
                 var order_id = (localStorage.order_id !== 'undefined') ? localStorage.order_id : null;
 
                 if (order_id) {
-                    axios.post('/api/orders/' + order_id + '/items/' + id + '/remove').then(response => {
+                    console.log('/api/orders/' + order_id + '/items/' + id + '/delete');
+
+                    /*axios.post('/api/orders/' + order_id + '/items/' + id + '/delete').then(response => {
 
                         // delete item id from order
 
-                    });
+                    });*/
                 }
             }
         }

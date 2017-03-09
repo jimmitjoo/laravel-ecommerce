@@ -12,7 +12,7 @@ class ProductsController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth')->except(['publicIndex', 'publicShow', 'apiLatest']);
+        $this->middleware('auth')->except(['publicIndex', 'publicShow', 'apiLatest', 'apiShow']);
     }
 
     public function apiLatest()
@@ -20,6 +20,13 @@ class ProductsController extends Controller
         $products = Product::latest()->paginate();
 
         return $products;
+    }
+
+    public function apiShow($id)
+    {
+        $product = Product::getById($id);
+
+        return $product;
     }
 
     public function publicIndex()

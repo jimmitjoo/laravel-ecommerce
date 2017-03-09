@@ -1,7 +1,7 @@
 <template>
-    <a href="#">
-        <span class="glyphicon glyphicon-shopping-cart"></span> {{ amount }}st {{ sum }}
-    </a>
+    <router-link to="/cart">
+        <span class="glyphicon glyphicon-shopping-cart"></span> {{ amount }}st | {{ sum.toLocaleString() }} {{ currency }}
+    </router-link>
 </template>
 
 <script>
@@ -17,6 +17,7 @@
 
         data() {
             return {
+                currency: window.Laravel.currencySign,
                 orderItems: [],
                 amount: 0,
                 sum: 0.0,

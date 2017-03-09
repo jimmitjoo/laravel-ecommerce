@@ -38,6 +38,10 @@
                     <button type="submit" class="btn btn-default">Submit</button>
                 </form>
                 <ul class="nav navbar-nav navbar-right">
+                    <li><minicart></minicart></li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
                     <li><a href="#">Link</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown
@@ -55,3 +59,11 @@
         </div><!-- /.container-fluid -->
     </nav>
 </template>
+
+<script>
+    export default {
+
+
+
+    }
+</script>

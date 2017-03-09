@@ -2,6 +2,7 @@ import Home from './components/Home.vue';
 import Cart from './components/Cart.vue';
 import Product from './components/products/Product.vue';
 import SingleProduct from './components/products/SingleProduct.vue';
+import SingleCategory from './components/categories/SingleCategory.vue';
 
 export const routes = [
     {path: '/', component: Home},
@@ -9,12 +10,13 @@ export const routes = [
         path: '/product',
         compontent: Product,
         /*children: [
-            {
-                path: ':id',
-                component: SingleProduct
-            }
-        ]*/
+         {
+         path: ':id',
+         component: SingleProduct
+         }
+         ]*/
     },
+    {path: '/category/:id', component: SingleCategory},
     {path: '/product/:id', component: SingleProduct},
-    {path: '/hej', component: Cart}
+    {path: '/cart', component: Cart}
 ];

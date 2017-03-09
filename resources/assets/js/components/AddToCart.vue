@@ -1,8 +1,12 @@
 <template>
     <div>
         <form v-on:submit.prevent="addToCart()">
-            <input type="number" v-model="product.amount" min="0">
-            <button class="btn btn-success">Köp nu</button>
+            <div class="input-group">
+                <input class="form-control" type="number" v-model="product.amount" min="0">
+                <span class="input-group-btn">
+                    <button class="btn btn-success">Köp nu</button>
+                </span>
+            </div>
         </form>
     </div>
 </template>
@@ -34,15 +38,16 @@
 
                 axios.post('/api/addtocart', {
                     order_id: order_id,
-                    product_id: this.product.id,
+                    product_id: this.productId,
                     amount: this.product.amount
                 }).then(response => {
+
+                    console.log(response.data);
 
                     Event.$emit('added_to_cart', true);
 
                     localStorage.order_id = response.data.order_id;
-                }).
-                catch(error => {
+                }).catch(error => {
                     console.log(error)
                 });
             }
