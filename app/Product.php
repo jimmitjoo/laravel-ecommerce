@@ -2,11 +2,16 @@
 
 namespace App;
 
+use App\Events\ProductDeleted;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
+    protected $events = [
+        'deleted' => ProductDeleted::class
+    ];
+
     public function categories() {
         return $this->belongsToMany('\App\Category');
     }
@@ -24,5 +29,7 @@ class Product extends Model
 
         return $product;
     }
+
+
 
 }

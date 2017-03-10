@@ -19,9 +19,7 @@
 
         created() {
 
-            axios.get('/api/category/' + this.$route.params.id).then(response => {
-                this.category = response.data;
-            });
+            this.getCategory();
 
         },
 
@@ -35,9 +33,21 @@
             }
         },
 
+        methods: {
+
+            getCategory() {
+                axios.get('/api/category/' + this.$route.params.id).then(response => {
+                    this.category = response.data;
+                });
+            }
+
+        },
+
         watch: {
             '$route'(to, from) {
-                this.id = to.params.id
+                this.id = to.params.id;
+
+                this.getCategory();
             }
         },
 

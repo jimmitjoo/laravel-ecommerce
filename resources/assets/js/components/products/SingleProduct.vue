@@ -27,9 +27,7 @@
 
         created() {
 
-            axios.get('/api/product/' + this.$route.params.id).then(response => {
-                this.product = response.data;
-            });
+            this.getProduct();
 
         },
 
@@ -43,9 +41,21 @@
             }
         },
 
+        methods: {
+
+            getProduct() {
+                axios.get('/api/product/' + this.$route.params.id).then(response => {
+                    this.product = response.data;
+                });
+            }
+
+        },
+
         watch: {
             '$route'(to, from) {
-                this.id = to.params.id
+                this.id = to.params.id;
+
+                this.getProduct();
             }
         },
 

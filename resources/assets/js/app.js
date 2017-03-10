@@ -17,13 +17,11 @@ Vue.component('cart', require('./components/Cart.vue'));
 Vue.component('minicart', require('./components/MiniCart.vue'));
 /*Vue.component('addtocart', require('./components/AddToCart.vue'));*/
 
-window.order_id = localStorage.order_id;
-window.added_to_tart = false;
-
 window.Event = new Vue();
 
 import Store from './Store.vue';
 import { routes } from './routes';
+import { store } from './store/store';
 import VueRouter from 'vue-router';
 window.Vue.use(VueRouter);
 
@@ -33,8 +31,12 @@ const router = new VueRouter({
     // mode: 'history'
 });
 
+
+store.state.order_id = localStorage.order_id;
+
 const app = new Vue({
     el: '#app',
     render: h => h(Store),
-    router
+    router,
+    store
 });

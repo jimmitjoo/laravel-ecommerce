@@ -18,10 +18,6 @@
             'productAmount'
         ],
 
-        mounted() {
-            console.log('mounted')
-        },
-
         data() {
             return {
                 product: {

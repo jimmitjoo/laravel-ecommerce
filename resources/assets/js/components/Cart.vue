@@ -1,49 +1,52 @@
 <template>
-    <div class="col-xs-12">
-        <table class="table table-hover">
-            <thead>
-            <tr>
-                <th>Produkt</th>
-                <th>Antal</th>
-                <th>Pris á styck</th>
-                <th>Pris á styck</th>
-            </tr>
-            </thead>
-            <tr v-for="item in orderItems">
-                <td><router-link :to="{ name: 'single-product', params: { id: item.product.id } }">{{ item.product.name }}</router-link></td>
-                <td>{{ item.amount }} st</td>
-                <td>{{ item.product.price }}</td>
-                <td>
-                    <button @click="removeItem(item.id)">Remove</button>
-                </td>
-            </tr>
-        </table>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Produkt</th>
+                        <th>Antal</th>
+                        <th>Pris á styck</th>
+                        <th>Pris á styck</th>
+                    </tr>
+                    </thead>
+                    <tr v-for="item in items">
+                        <td>
+                            <router-link :to="{ name: 'single-product', params: { id: item.product_id } }">name</router-link>
+                        </td>
+                        <td>{{ item.amount }} st</td>
+                        <td></td>
+                        <td>
+                            <button @click="removeItem(item.id)">Remove</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-4">
+                <apply-coupon></apply-coupon>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
+    import ApplyCoupon from './coupons/ApplyCoupon.vue';
+
     export default {
-
-        mounted() {
-            Event.$on('updated_cart', response => {
-                this.getOrderItems();
-            });
-
-            this.getOrderItems();
-        },
 
         data() {
             return {
-                orderItems: [],
-                amount: 0,
-                sum: 0.0,
+                items: this.$store.order.items
             }
         },
 
         methods: {
             getOrderItems() {
 
-                var order_id = (localStorage.order_id !== 'undefined') ? localStorage.order_id : null;
+                /*var order_id = (localStorage.order_id !== 'undefined') ? localStorage.order_id : null;
 
                 if (order_id) {
                     axios.get('/api/orders/' + order_id + '/items').then(response => {
@@ -56,7 +59,7 @@
                             this.sum += (parseFloat(this.orderItems[i].product.price) * this.orderItems[i].amount);
                         }
                     });
-                }
+                }*/
 
             },
 
@@ -74,6 +77,10 @@
                     });
                 }
             }
+        },
+
+        components: {
+            ApplyCoupon
         }
     }
 </script>

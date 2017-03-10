@@ -16,7 +16,7 @@ export const routes = [
          }
          ]*/
     },
-    {path: '/category/:id', component: SingleCategory},
+    {path: '/category/:id', name: 'single-category', component: SingleCategory},
     {path: '/product/:id', name: 'single-product', component: SingleProduct},
     {path: '/cart', component: Cart}
 ];

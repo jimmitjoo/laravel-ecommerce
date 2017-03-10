@@ -27,7 +27,7 @@
         methods: {
             getOrderItems() {
 
-                var order_id = (localStorage.order_id !== 'undefined') ? localStorage.order_id : null;
+                /*var order_id = (localStorage.order_id !== 'undefined') ? localStorage.order_id : null;
 
                 if (order_id) {
                     axios.get('/api/orders/' + order_id + '/items').then((response) => {
@@ -40,7 +40,7 @@
                             this.sum += (parseFloat(this.orderItems[i].product.price) * this.orderItems[i].amount);
                         }
                     })
-                }
+                }*/
 
             }
         }
